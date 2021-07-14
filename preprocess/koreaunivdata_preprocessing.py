@@ -27,9 +27,11 @@ test =pd.concat([test.UsedPower, test.label], axis= 1)
 #training data to csv
 train.to_csv('./data/split/dataC_train.csv')
 
+"""
 ##############################################################################
 #make abnormal data
 #make attack to validation set and test set
+##we can maek six types of attacks like this (not used in the paper)
 
 
 
@@ -99,7 +101,7 @@ class AttackGeneration:
     def attack_6(self, seq_list):
         return seq_list[::-1]
 
-
+"""
 # attack is only 1% of validation data
 
 
@@ -148,7 +150,7 @@ def scenario3(seq_list):
 
 
 
-#Scenario 1 : for each point in one section, multiply each point value by randint(2,10)
+# #for validation set
 # # attack1 for 4 times
 for k in range(4):
     only_attack1 = pd.DataFrame(index=range(0))  # 빈 dataframe 생성
@@ -201,7 +203,9 @@ for k in range(8,12):
 #to_csv
 temp_val.to_csv('./data/split/dataC_val.csv')
 
-# attack is only 1% of validation data
+
+# #for test set
+# attack is only 1% of test data
 
 
 #empty dataframe for indexes
@@ -227,29 +231,8 @@ for j in range(12):
         test_index.remove(k)
 
 
-#make data to abnormal data, and change each label from 0 to 1
 
-# 함수 +  값 변형
-def scenario1(seq_list):
-    gamma_list = np.random.uniform(6, 10, len(seq_list))
-    seq_list = np.asarray(seq_list)
-
-    return [x_t * gamma_t for x_t, gamma_t in zip(seq_list, gamma_list)]  # , gamma_list
-
-def scenario2(seq_list):
-    gamma_list = np.random.uniform(0.1,0.5, len(seq_list))
-    seq_list = np.asarray(seq_list)
-
-    return [x_t * gamma_t for x_t, gamma_t in zip(seq_list, gamma_list)]  # , gamma_list
-
-def scenario3(seq_list):
-    alpha = np.random.uniform(0.1,0.8)
-
-    return seq_list * alpha
-
-
-
-#Scenario 1 : for each point in one section, multiply each point value by randint(2,10)
+# #for testset 
 # # attack1 for 4 times
 for k in range(4):
     only_attack1 = pd.DataFrame(index=range(0))  # 빈 dataframe 생성
